@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -29,8 +30,29 @@ class HelloControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/hello"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(hello));
-
-
     }
+
+    @Test
+    @DisplayName("helloDTO가 리턴된다")
+    public void helloDTO() throws Exception{
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(MockMvcRequestBuilders
+                .get("/hello/dto")
+                .param("name", name)
+                .param("amount", String.valueOf(amount)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.amount").value(amount));
+
+
+
+
+        //when
+
+        //then
+    }
+
 
 }
