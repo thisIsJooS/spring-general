@@ -1,6 +1,6 @@
-package com.general.gen.Controller;
+package com.general.gen.web;
 
-import com.general.gen.Dto.HelloResponseDTO;
+import com.general.gen.web.Dto.HelloResponseDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

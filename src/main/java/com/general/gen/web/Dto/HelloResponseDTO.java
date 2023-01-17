@@ -1,4 +1,4 @@
-package com.general.gen.Dto;
+package com.general.gen.web.Dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

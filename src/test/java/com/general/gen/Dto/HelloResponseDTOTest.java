@@ -1,11 +1,10 @@
 package com.general.gen.Dto;
 
-import org.assertj.core.api.Assertions;
+import com.general.gen.web.Dto.HelloResponseDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class HelloResponseDTOTest {
     @Test
