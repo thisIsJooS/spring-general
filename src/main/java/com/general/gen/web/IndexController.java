@@ -1,5 +1,6 @@
 package com.general.gen.web;
 
+import com.general.gen.config.auth.LoginUser;
 import com.general.gen.config.auth.dto.SessionUser;
 import com.general.gen.service.posts.PostsService;
 import com.general.gen.web.Dto.PostsResponseDto;
@@ -18,9 +19,11 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model){   // Model은 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
+    public String index(Model model, @LoginUser SessionUser user){   // Model은 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        // 아래 코드는 @LoginUser 어노테이션을 사용하게 되면서 불필요해짐.
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if(user != null){
             model.addAttribute("userName", user.getName());
