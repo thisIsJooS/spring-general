@@ -25,7 +25,7 @@ class IndexControllerTest {
         String body = this.restTemplate.getForObject("/", String.class);
 
         //then
-        Assertions.assertThat(body).contains("해요");
+        Assertions.assertThat(body).contains("감동");
     }
 
 }
