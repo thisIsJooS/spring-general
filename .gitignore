@@ -38,4 +38,4 @@ out/
 
 ## custom
 application.yml
-*.yml
+application-oauth.yml
