@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk10
+  - openjdk17
 
 
 # Travis CI를 어느 브랜치가 push 될 때 수행할 지 지정한다.
