@@ -18,6 +18,23 @@ cache:
 # master branch에 push 되었을 대 수행하는 명령어
 script: "./gradlew clean build"
 
+before_deploy:  # CodeDeploysms jar 파일은 인식하지 못하므로 jar + 기타 설정 파일들을 모아 압축해야 한다.
+  - zip -r spring-general *  # zip -r <압축파일명>.zip <압축하려는 폴더>
+  - mkdir -p deploy  # mkdir -p 옵션은 안전하게 파일 경로를 생성해 준다
+  - mv spring-general.zip deploy/spring-general.zip
+
+deploy:      # S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비스와 연동될 행위들을 선언한다.
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY   # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY    # Travis repo settings에 설정된 값
+    bucket: spring-general-build-bucket
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private    # zip 파일 접근을 private 으로
+    local_dir: deploy   # before_deploy 에서 생성한 디렉토리. 해당 위치의 파일들만 S3로 전송한다.
+    wait-until-deployed: true
+
+
 # CI 실행 완료 시 메일로 알림
 notifications:
   email:
