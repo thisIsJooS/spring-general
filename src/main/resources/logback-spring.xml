@@ -2,7 +2,7 @@
 <configuration>
 
     <!--로그 파일 저장 위치-->
-    <property name="LOGS_PATH" value="/var/log/tomcat9/logs/"/>
+    <property name="LOGS_PATH" value="./logs/"/>
 
     <!--    ‘fileAppender’는 RollingFileAppender 클래스를 이용해서 특정 파일에 로그를 출력한다-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
