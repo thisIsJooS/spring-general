@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--로그 파일 저장 위치-->
+    <property name="LOGS_PATH" value="./logs"/>
+
+    <!--    ‘fileAppender’는 RollingFileAppender 클래스를 이용해서 특정 파일에 로그를 출력한다-->
+    <appender name="DAILY_ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_PATH}/logback.log</file>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.S} [%thread] [traceId=%X{traceId}] %-5level %logger{36}.%M - %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_PATH}/logback.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+                <!-- kb, mb, gb -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+
+<!--    ‘consoleAppender’는 ConsoleAppender 클래스를 이용해서 콘솔에 로그를 출력한다.-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm} %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="SAMPLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.S} [%thread] [traceId=%X{traceId}] %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="!(dev | prod)">
+        <root level="info">
+            <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"/>
+        </root>
+    </springProfile>
+
+<!--    <logger name="com.general.gen" level="DEBUG">-->
+<!--        <appender-ref ref="SAMPLE" />-->
+<!--    </logger>-->
+<!--    <logger name="com.general.gen" level="INFO">-->
+<!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->
+<!--    </logger>-->
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="STDOUT" />-->
+<!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->
+<!--    </root>-->
+</configuration>
+
+<!--        로그 파일 생성 위치(리눅스): /var/log/tomcat9/-->
+<!--        로그 파일 생성 위치(개발환경): 프로젝트 루트/logs-->

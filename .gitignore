@@ -39,3 +39,4 @@ out/
 ## custom
 application-oauth.yml
 application-real-db.yml
+*.log
